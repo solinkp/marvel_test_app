@@ -3,7 +3,7 @@ import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
 
 import 'package:marvel_test/di/injection.config.dart';
-import 'package:marvel_test/utils/dio_interceptor.dart';
+import 'package:marvel_test/utils/interceptor/dio_interceptor.dart';
 
 //* Get instance of GetIt.
 final locator = GetIt.instance;
