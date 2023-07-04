@@ -1,13 +1,13 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import 'package:marvel_test/models/comic/comic.dart';
+import 'package:marvel_test/models/comic/state_response/comic_state_response.dart';
 
 part 'comic_vm_state.freezed.dart';
 
 @freezed
 class ComicVmState with _$ComicVmState {
   const factory ComicVmState({
-    required List<Comic>? response,
+    required ComicStateResponse? response,
     required bool isLoading,
     required String? failure,
   }) = _ComicVmState;
@@ -24,7 +24,7 @@ class ComicVmState with _$ComicVmState {
         failure: null,
       );
 
-  factory ComicVmState.success(List<Comic> data) => ComicVmState(
+  factory ComicVmState.success(ComicStateResponse data) => ComicVmState(
         response: data,
         isLoading: false,
         failure: null,

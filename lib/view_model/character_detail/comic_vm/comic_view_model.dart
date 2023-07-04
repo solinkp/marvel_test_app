@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:marvel_test/di/injection.dart';
 import 'package:marvel_test/generated/l10n.dart';
 import 'package:marvel_test/repository/comic/i_comic_repository.dart';
+import 'package:marvel_test/models/comic/state_response/comic_state_response.dart';
 import 'package:marvel_test/view_model/character_detail/comic_vm/comic_vm_state.dart';
 
 final comicsProvider = StateNotifierProvider<ComicViewModel, ComicVmState>(
@@ -33,10 +34,14 @@ class ComicViewModel extends StateNotifier<ComicVmState> {
       if (response == null) {
         state = ComicVmState.failure(S.current.generalError);
       } else {
-        state = ComicVmState.success([
-          if (!refresh) ...state.response ?? [],
-          ...response,
-        ]);
+        var loaded = response.isEmpty;
+        state = ComicVmState.success(ComicStateResponse(
+          comics: [
+            if (!refresh) ...state.response?.comics ?? [],
+            ...response,
+          ],
+          fullyLoaded: loaded,
+        ));
       }
     } catch (e) {
       state = ComicVmState.failure(S.current.generalError);
