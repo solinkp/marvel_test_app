@@ -12,8 +12,11 @@ class EventDataSource implements IEventDataSource {
   EventDataSource({required this.client});
 
   @override
-  Future<List<Event>> getCharEvents(int charId) async {
-    final response = await client.get('$baseUrl/$charId/$eventsUrlSuff');
+  Future<List<Event>> getCharEvents(int charId, int offset) async {
+    final response = await client.get(
+      '$baseUrl/$charId/$eventsUrlSuff',
+      queryParameters: {'offset': offset},
+    );
 
     List<Event> events = [];
     for (var event in response.data['data']['results']) {

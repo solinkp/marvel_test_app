@@ -12,8 +12,11 @@ class ComicDataSource implements IStoryDataSource {
   ComicDataSource({required this.client});
 
   @override
-  Future<List<Story>> getCharStories(int charId) async {
-    final response = await client.get('$baseUrl/$charId/$storiesUrlSuff');
+  Future<List<Story>> getCharStories(int charId, int offset) async {
+    final response = await client.get(
+      '$baseUrl/$charId/$storiesUrlSuff',
+      queryParameters: {'offset': offset},
+    );
 
     List<Story> stories = [];
     for (var story in response.data['data']['results']) {

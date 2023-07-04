@@ -11,9 +11,12 @@ class ComicRepository implements IComicRepository {
   ComicRepository(this._comicDataSource);
 
   @override
-  Future<List<Comic>> getCharComics({required int charId}) async {
+  Future<List<Comic>?> getCharComics({
+    required int charId,
+    required int offset,
+  }) async {
     try {
-      return await _comicDataSource.getCharComics(charId);
+      return await _comicDataSource.getCharComics(charId, offset);
     } catch (e) {
       return [];
     }

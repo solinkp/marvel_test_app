@@ -11,9 +11,12 @@ class StoryRepository implements IStoryRepository {
   StoryRepository(this._storyDataSource);
 
   @override
-  Future<List<Story>> getCharStories({required int charId}) async {
+  Future<List<Story>> getCharStories({
+    required int charId,
+    required int offset,
+  }) async {
     try {
-      return await _storyDataSource.getCharStories(charId);
+      return await _storyDataSource.getCharStories(charId, offset);
     } catch (e) {
       return [];
     }

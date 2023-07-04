@@ -11,9 +11,12 @@ class EventRepository implements IEventRepository {
   EventRepository(this._eventDataSource);
 
   @override
-  Future<List<Event>> getCharEvents({required int charId}) async {
+  Future<List<Event>?> getCharEvents({
+    required int charId,
+    required int offset,
+  }) async {
     try {
-      return await _eventDataSource.getCharEvents(charId);
+      return await _eventDataSource.getCharEvents(charId, offset);
     } catch (e) {
       return [];
     }

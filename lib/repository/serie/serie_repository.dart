@@ -11,9 +11,12 @@ class SerieRepository implements ISerieRepository {
   SerieRepository(this._serieDataSource);
 
   @override
-  Future<List<Serie>> getCharSeries({required int charId}) async {
+  Future<List<Serie>> getCharSeries({
+    required int charId,
+    required int offset,
+  }) async {
     try {
-      return await _serieDataSource.getCharSeries(charId);
+      return await _serieDataSource.getCharSeries(charId, offset);
     } catch (e) {
       return [];
     }

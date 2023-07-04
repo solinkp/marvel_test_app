@@ -12,8 +12,11 @@ class SerieDataSource implements ISerieDataSource {
   SerieDataSource({required this.client});
 
   @override
-  Future<List<Serie>> getCharSeries(int charId) async {
-    final response = await client.get('$baseUrl/$charId/$seriesUrlSuff');
+  Future<List<Serie>> getCharSeries(int charId, int offset) async {
+    final response = await client.get(
+      '$baseUrl/$charId/$seriesUrlSuff',
+      queryParameters: {'offset': offset},
+    );
 
     List<Serie> series = [];
     for (var serie in response.data['data']['results']) {
