@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:marvel_test/utils/global_snackbar.dart';
 
+import 'package:marvel_test/utils/global_snackbar.dart';
 import 'package:marvel_test/view/wigdets/empty_data.dart';
 import 'package:marvel_test/view/wigdets/custom_loader.dart';
+import 'package:marvel_test/view/wigdets/custom_gridview.dart';
+import 'package:marvel_test/view_model/character_detail/comic_vm/comic_vm_state.dart';
 import 'package:marvel_test/view/character_details/comics_page/widgets/comic_item.dart';
 import 'package:marvel_test/view_model/character_detail/comic_vm/comic_view_model.dart';
-import 'package:marvel_test/view_model/character_detail/comic_vm/comic_vm_state.dart';
 
 final _comicProvider = Provider.autoDispose(
   (ref) => ref.watch(comicsProvider),
@@ -79,22 +79,13 @@ class _ComicsPageState extends ConsumerState<ComicsPage> {
           ? const CustomLoader(size: SpinnerSize.normal)
           : comicList.failure != null || comicList.response!.comics.isEmpty
               ? const EmptyData()
-              : GridView.builder(
+              : CustomGridview(
                   controller: _scrollController,
-                  shrinkWrap: true,
-                  physics: const ClampingScrollPhysics(),
-                  padding: EdgeInsets.symmetric(horizontal: 5.w),
                   itemCount: comicList.response!.comics.length + _plusLoad,
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 3,
-                  ),
-                  itemBuilder: (_, index) {
-                    if (index < comicList.response!.comics.length) {
-                      var comic = comicList.response!.comics[index];
-                      return ComicItem(comic: comic);
-                    } else {
-                      return const CustomLoader(size: SpinnerSize.small);
-                    }
+                  itemLength: comicList.response!.comics.length,
+                  builder: (index) {
+                    var comic = comicList.response!.comics[index];
+                    return ComicItem(comic: comic);
                   },
                 ),
     );

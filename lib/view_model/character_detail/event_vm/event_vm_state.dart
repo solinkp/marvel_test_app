@@ -1,13 +1,13 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import 'package:marvel_test/models/event/event.dart';
+import 'package:marvel_test/models/event/state_response/event_state_response.dart';
 
 part 'event_vm_state.freezed.dart';
 
 @freezed
 class EventVmState with _$EventVmState {
   const factory EventVmState({
-    required List<Event>? response,
+    required EventStateResponse? response,
     required bool isLoading,
     required String? failure,
   }) = _EventVmState;
@@ -24,7 +24,7 @@ class EventVmState with _$EventVmState {
         failure: null,
       );
 
-  factory EventVmState.success(List<Event> data) => EventVmState(
+  factory EventVmState.success(EventStateResponse data) => EventVmState(
         response: data,
         isLoading: false,
         failure: null,

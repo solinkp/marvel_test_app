@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:marvel_test/utils/global_snackbar.dart';
 import 'package:marvel_test/view/wigdets/empty_data.dart';
 import 'package:marvel_test/view/wigdets/custom_loader.dart';
-import 'package:marvel_test/view/character_details/stories_page/widgets/story_item.dart';
-import 'package:marvel_test/view_model/character_detail/story_vm/story_view_model.dart';
+import 'package:marvel_test/view/wigdets/custom_gridview.dart';
 import 'package:marvel_test/view_model/character_detail/story_vm/story_vm_state.dart';
+import 'package:marvel_test/view_model/character_detail/story_vm/story_view_model.dart';
+import 'package:marvel_test/view/character_details/stories_page/widgets/story_item.dart';
 
 final _storyProvider = Provider.autoDispose(
   (ref) => ref.watch(storiesProvider),
@@ -79,22 +79,13 @@ class _StoriesPageState extends ConsumerState<StoriesPage> {
           ? const CustomLoader(size: SpinnerSize.normal)
           : storyList.failure != null || storyList.response!.stories.isEmpty
               ? const EmptyData()
-              : GridView.builder(
+              : CustomGridview(
                   controller: _scrollController,
-                  shrinkWrap: true,
-                  physics: const ClampingScrollPhysics(),
-                  padding: EdgeInsets.symmetric(horizontal: 5.w),
                   itemCount: storyList.response!.stories.length + _plusLoad,
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 3,
-                  ),
-                  itemBuilder: (_, index) {
-                    if (index < storyList.response!.stories.length) {
-                      var story = storyList.response!.stories[index];
-                      return StoryItem(story: story);
-                    } else {
-                      return const CustomLoader(size: SpinnerSize.small);
-                    }
+                  itemLength: storyList.response!.stories.length,
+                  builder: (index) {
+                    var story = storyList.response!.stories[index];
+                    return StoryItem(story: story);
                   },
                 ),
     );

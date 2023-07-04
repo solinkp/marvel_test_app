@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:marvel_test/di/injection.dart';
 import 'package:marvel_test/generated/l10n.dart';
 import 'package:marvel_test/repository/event/i_event_repository.dart';
+import 'package:marvel_test/models/event/state_response/event_state_response.dart';
 import 'package:marvel_test/view_model/character_detail/event_vm/event_vm_state.dart';
 
 final eventsProvider = StateNotifierProvider<EventViewModel, EventVmState>(
@@ -33,10 +34,14 @@ class EventViewModel extends StateNotifier<EventVmState> {
       if (response == null) {
         state = EventVmState.failure(S.current.generalError);
       } else {
-        state = EventVmState.success([
-          if (!refresh) ...state.response ?? [],
-          ...response,
-        ]);
+        var loaded = response.isEmpty;
+        state = EventVmState.success(EventStateResponse(
+          events: [
+            if (!refresh) ...state.response?.events ?? [],
+            ...response,
+          ],
+          fullyLoaded: loaded,
+        ));
       }
     } catch (e) {
       state = EventVmState.failure(S.current.generalError);

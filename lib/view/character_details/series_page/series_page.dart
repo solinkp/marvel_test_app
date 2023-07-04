@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import 'package:marvel_test/utils/global_snackbar.dart';
 import 'package:marvel_test/view/wigdets/empty_data.dart';
 import 'package:marvel_test/view/wigdets/custom_loader.dart';
+import 'package:marvel_test/view/wigdets/custom_gridview.dart';
+import 'package:marvel_test/view_model/character_detail/serie_vm/serie_vm_state.dart';
 import 'package:marvel_test/view/character_details/series_page/widgets/serie_item.dart';
 import 'package:marvel_test/view_model/character_detail/serie_vm/serie_view_model.dart';
 
@@ -21,8 +23,19 @@ class SeriesPage extends ConsumerStatefulWidget {
 }
 
 class _SeriesPageState extends ConsumerState<SeriesPage> {
+  final _scrollController = ScrollController();
+  int _loadedSeries = 0;
+  int _plusLoad = 1;
+
   @override
   void initState() {
+    _scrollController.addListener(() {
+      if (_scrollController.position.maxScrollExtent ==
+              _scrollController.position.pixels &&
+          _plusLoad > 0) {
+        _loadData(_loadedSeries);
+      }
+    });
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       ref.read(seriesProvider.notifier).getSerieList(
@@ -34,8 +47,28 @@ class _SeriesPageState extends ConsumerState<SeriesPage> {
   }
 
   @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final serieList = ref.watch(_serieProvider);
+    ref.listen<SerieVmState>(_serieProvider, (_, state) async {
+      if (state.failure != null) {
+        showMsnSnackbar(state.failure!);
+      }
+      if (state.response != null) {
+        if (_loadedSeries == state.response!.series.length ||
+            state.response!.series.length < 20 ||
+            state.response!.fullyLoaded) {
+          setState(() => _plusLoad = 0);
+        } else {
+          _loadedSeries = state.response!.series.length;
+        }
+      }
+    });
 
     return RefreshIndicator(
       onRefresh: () => _loadData(0, refresh: true),
@@ -44,23 +77,15 @@ class _SeriesPageState extends ConsumerState<SeriesPage> {
                   serieList.failure == null &&
                   serieList.response == null)
           ? const CustomLoader(size: SpinnerSize.normal)
-          : serieList.failure != null || serieList.response!.isEmpty
+          : serieList.failure != null || serieList.response!.series.isEmpty
               ? const EmptyData()
-              : GridView.builder(
-                  shrinkWrap: true,
-                  physics: const ClampingScrollPhysics(),
-                  padding: EdgeInsets.symmetric(horizontal: 5.w),
-                  itemCount: serieList.response!.length,
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 3,
-                  ),
-                  itemBuilder: (_, index) {
-                    if (index < serieList.response!.length) {
-                      var serie = serieList.response![index];
-                      return SerieItem(serie: serie);
-                    } else {
-                      return const CustomLoader(size: SpinnerSize.small);
-                    }
+              : CustomGridview(
+                  controller: _scrollController,
+                  itemCount: serieList.response!.series.length + _plusLoad,
+                  itemLength: serieList.response!.series.length,
+                  builder: (index) {
+                    var serie = serieList.response!.series[index];
+                    return SerieItem(serie: serie);
                   },
                 ),
     );

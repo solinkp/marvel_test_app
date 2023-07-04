@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:marvel_test/utils/global_snackbar.dart';
 import 'package:marvel_test/view/wigdets/empty_data.dart';
 import 'package:marvel_test/view/wigdets/custom_loader.dart';
+import 'package:marvel_test/view/wigdets/custom_gridview.dart';
 import 'package:marvel_test/view/layouts/dashboard_layout.dart';
 import 'package:marvel_test/view/dashboard/widgets/character_item.dart';
 import 'package:marvel_test/view_model/dashboard/dashboard_vm_state.dart';
@@ -72,26 +72,17 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
             : characterList.failure != null ||
                     characterList.response!.characters.isEmpty
                 ? const EmptyData()
-                : GridView.builder(
+                : CustomGridview(
                     controller: _scrollController,
-                    shrinkWrap: true,
-                    physics: const ClampingScrollPhysics(),
-                    padding: EdgeInsets.symmetric(horizontal: 15.w),
                     itemCount:
                         characterList.response!.characters.length + _plusLoad,
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                    ),
-                    itemBuilder: (_, index) {
-                      if (index < characterList.response!.characters.length) {
-                        var character =
-                            characterList.response!.characters[index];
-                        return CharacterItem(character: character);
-                      } else {
-                        return const CustomLoader(size: SpinnerSize.small);
-                      }
+                    itemLength: characterList.response!.characters.length,
+                    builder: (index) {
+                      var character = characterList.response!.characters[index];
+                      return CharacterItem(character: character);
                     },
+                    padding: 15,
+                    axisCount: 2,
                   ),
       ),
     );
