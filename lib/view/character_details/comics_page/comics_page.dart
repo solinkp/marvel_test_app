@@ -26,7 +26,7 @@ class _ComicsPageState extends ConsumerState<ComicsPage> {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       ref.read(comicsProvider.notifier).getComicList(
-            charId: 1011334,
+            charId: widget.characterId,
             offset: 0,
             refresh: true,
           );
