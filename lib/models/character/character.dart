@@ -20,8 +20,4 @@ class Character {
 
   factory Character.fromJson(Map<String, dynamic> json) =>
       _$CharacterFromJson(json);
-
-  String get getImageUrl {
-    return '${thumbnail?.path}.${thumbnail?.extension}';
-  }
 }

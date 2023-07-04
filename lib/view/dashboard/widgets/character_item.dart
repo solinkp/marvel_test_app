@@ -14,7 +14,7 @@ class CharacterItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return ImageContainer(
       onTap: () => _displayMoreInfo(context),
-      imageUrl: character.getImageUrl,
+      imageUrl: character.thumbnail?.getImageUrl,
       title: character.name,
     );
   }

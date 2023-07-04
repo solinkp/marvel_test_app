@@ -14,4 +14,8 @@ class Art {
 
   factory Art.fromJson(Map<String, dynamic> json) =>
       _$ArtFromJson(json);
+
+  String get getImageUrl {
+    return '$path.$extension';
+  }
 }

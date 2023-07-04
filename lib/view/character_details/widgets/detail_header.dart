@@ -19,7 +19,11 @@ class DetailHeader extends StatelessWidget {
 
     return Row(
       children: [
-        Expanded(child: ImagePortrait(imageUrl: character.getImageUrl)),
+        Expanded(
+          child: ImagePortrait(
+            imageUrl: character.thumbnail?.getImageUrl ?? '',
+          ),
+        ),
         Expanded(
           child: Padding(
             padding: EdgeInsets.only(top: 5.h, bottom: 10.h, right: 10.w),

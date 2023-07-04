@@ -26,8 +26,8 @@ class Comic {
 
   List<String> get getImages {
     List<String> urls = [];
-    for (var image in images ?? <Art>[]) {
-      urls.add('${image.path}.${image.extension}');
+    for (var art in images ?? <Art>[]) {
+      urls.add(art.getImageUrl);
     }
     return urls;
   }
