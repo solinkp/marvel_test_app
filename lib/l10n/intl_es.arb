@@ -1,5 +1,10 @@
 {
   "appTitle": "Marvel App",
   "generalError": "Ha ocurrido un error.\nPor favor intenta de nuevo.",
-  "emptyDataMsg": "No hay datos para mostrar"
+  "emptyDataMsg": "No hay datos para mostrar",
+  "comicNav": "Comics",
+  "eventNav": "Eventos",
+  "serieNav": "Series",
+  "storyNav": "Historias",
+  "descripNotAvail": "Descripción no disponible"
 }

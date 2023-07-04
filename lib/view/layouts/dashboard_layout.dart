@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:marvel_test/generated/l10n.dart';
 
+import 'package:marvel_test/generated/l10n.dart';
 import 'package:marvel_test/res/colors/colors.dart';
 
 class DashboardLayout extends StatelessWidget {

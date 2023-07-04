@@ -84,6 +84,9 @@ class AppTheme {
       foregroundColor: marvelWhite,
       centerTitle: false,
     ),
+    navigationBarTheme: const NavigationBarThemeData(
+      backgroundColor: marvelGrey,
+    ),
     visualDensity: VisualDensity.adaptivePlatformDensity,
   );
 }

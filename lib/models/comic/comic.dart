@@ -23,4 +23,12 @@ class Comic {
   });
 
   factory Comic.fromJson(Map<String, dynamic> json) => _$ComicFromJson(json);
+
+  List<String> get getImages {
+    List<String> urls = [];
+    for (var image in images ?? <Art>[]) {
+      urls.add('${image.path}.${image.extension}');
+    }
+    return urls;
+  }
 }

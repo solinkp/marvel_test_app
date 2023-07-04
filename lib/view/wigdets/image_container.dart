@@ -29,7 +29,7 @@ class ImageContainer extends StatelessWidget {
         borderRadius: BorderRadius.circular(15),
         highlightColor: Colors.transparent,
         splashColor: marvelBrown,
-        onTap: () => onTap,
+        onTap: onTap,
         child: Stack(
           children: [
             Center(
@@ -47,9 +47,9 @@ class ImageContainer extends StatelessWidget {
                 ),
                 child: ClipRRect(
                   borderRadius: const BorderRadius.all(Radius.circular(12)),
-                  child: hasSwiper
+                  child: hasSwiper && imagesUrls!.isNotEmpty
                       ? SwiperImages(imagesUrls: imagesUrls!)
-                      : SingleImage(imageUrl: imageUrl!),
+                      : SingleImage(imageUrl: imageUrl ?? ''),
                 ),
               ),
             ),
