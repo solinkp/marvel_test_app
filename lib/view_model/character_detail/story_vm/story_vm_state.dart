@@ -1,13 +1,13 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import 'package:marvel_test/models/story/story.dart';
+import 'package:marvel_test/models/story/state_response/story_state_response.dart';
 
 part 'story_vm_state.freezed.dart';
 
 @freezed
 class StoryVmState with _$StoryVmState {
   const factory StoryVmState({
-    required List<Story>? response,
+    required StoryStateResponse? response,
     required bool isLoading,
     required String? failure,
   }) = _StoryVmState;
@@ -24,7 +24,7 @@ class StoryVmState with _$StoryVmState {
         failure: null,
       );
 
-  factory StoryVmState.success(List<Story> data) => StoryVmState(
+  factory StoryVmState.success(StoryStateResponse data) => StoryVmState(
         response: data,
         isLoading: false,
         failure: null,

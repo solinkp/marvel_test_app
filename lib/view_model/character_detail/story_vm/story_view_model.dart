@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:marvel_test/di/injection.dart';
 import 'package:marvel_test/generated/l10n.dart';
 import 'package:marvel_test/repository/story/i_story_repository.dart';
+import 'package:marvel_test/models/story/state_response/story_state_response.dart';
 import 'package:marvel_test/view_model/character_detail/story_vm/story_vm_state.dart';
 
 final storiesProvider = StateNotifierProvider<StoryViewModel, StoryVmState>(
@@ -33,10 +34,14 @@ class StoryViewModel extends StateNotifier<StoryVmState> {
       if (response == null) {
         state = StoryVmState.failure(S.current.generalError);
       } else {
-        state = StoryVmState.success([
-          if (!refresh) ...state.response ?? [],
-          ...response,
-        ]);
+        var loaded = response.isEmpty;
+        state = StoryVmState.success(StoryStateResponse(
+          stories: [
+            if (!refresh) ...state.response?.stories ?? [],
+            ...response,
+          ],
+          fullyLoaded: loaded,
+        ));
       }
     } catch (e) {
       state = StoryVmState.failure(S.current.generalError);
