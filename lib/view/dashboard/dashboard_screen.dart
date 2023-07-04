@@ -25,14 +25,16 @@ class DashboardScreen extends ConsumerStatefulWidget {
 
 class _DashboardScreenState extends ConsumerState<DashboardScreen> {
   final _scrollController = ScrollController();
-  int loadedChars = 0;
+  int _loadedChars = 0;
+  int _plusLoad = 1;
 
   @override
   void initState() {
     _scrollController.addListener(() {
       if (_scrollController.position.maxScrollExtent ==
-          _scrollController.position.pixels) {
-        _loadData(loadedChars);
+              _scrollController.position.pixels &&
+          _plusLoad > 0) {
+        _loadData(_loadedChars);
       }
     });
     super.initState();
@@ -52,7 +54,13 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
         showMsnSnackbar(state.failure!);
       }
       if (state.response != null) {
-        loadedChars = state.response!.length;
+        if (_loadedChars == state.response!.characters.length ||
+            state.response!.characters.length < 20 ||
+            state.response!.fullyLoaded) {
+          setState(() => _plusLoad = 0);
+        } else {
+          _loadedChars = state.response!.characters.length;
+        }
       }
     });
 
@@ -61,20 +69,24 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
         onRefresh: () => _loadData(0, refresh: true),
         child: characterList.isLoading
             ? const CustomLoader(size: SpinnerSize.normal)
-            : characterList.failure != null || characterList.response!.isEmpty
+            : characterList.failure != null ||
+                    characterList.response!.characters.isEmpty
                 ? const EmptyData()
                 : GridView.builder(
                     controller: _scrollController,
                     shrinkWrap: true,
                     physics: const ClampingScrollPhysics(),
                     padding: EdgeInsets.symmetric(horizontal: 15.w),
-                    itemCount: characterList.response!.length + 1,
-                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    itemCount:
+                        characterList.response!.characters.length + _plusLoad,
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2,
                     ),
                     itemBuilder: (_, index) {
-                      if (index < characterList.response!.length) {
-                        var character = characterList.response![index];
+                      if (index < characterList.response!.characters.length) {
+                        var character =
+                            characterList.response!.characters[index];
                         return CharacterItem(character: character);
                       } else {
                         return const CustomLoader(size: SpinnerSize.small);

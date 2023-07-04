@@ -5,6 +5,7 @@ import 'package:marvel_test/di/injection.dart';
 import 'package:marvel_test/generated/l10n.dart';
 import 'package:marvel_test/view_model/dashboard/dashboard_vm_state.dart';
 import 'package:marvel_test/repository/character/i_character_repository.dart';
+import 'package:marvel_test/models/character/state_response/character_state_response.dart';
 
 final dashboardViewProvider =
     StateNotifierProvider<DashboardViewModel, DashboardVmState>(
@@ -29,10 +30,14 @@ class DashboardViewModel extends StateNotifier<DashboardVmState> {
       if (response == null) {
         state = DashboardVmState.failure(S.current.generalError);
       } else {
-        state = DashboardVmState.success([
-          if (!refresh) ...state.response ?? [],
-          ...response,
-        ]);
+        var loaded = response.isEmpty;
+        state = DashboardVmState.success(CharacterStateResponse(
+          characters: [
+            if (!refresh) ...state.response?.characters ?? [],
+            ...response,
+          ],
+          fullyLoaded: loaded,
+        ));
       }
     } catch (e) {
       state = DashboardVmState.failure(S.current.generalError);
