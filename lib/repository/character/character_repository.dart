@@ -11,11 +11,11 @@ class CharacterRepository implements ICharacterRepository {
   CharacterRepository(this._characterDataSource);
 
   @override
-  Future<List<Character>> getCharacters() async {
+  Future<List<Character>?> getCharacters({required int offset}) async {
     try {
-      return await _characterDataSource.getCharacters();
+      return await _characterDataSource.getCharacters(offset);
     } catch (e) {
-      return [];
+      return null;
     }
   }
 }

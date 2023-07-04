@@ -1,3 +1,5 @@
 {
-  "appTitle": "Marvel App"
+  "appTitle": "Marvel App",
+  "generalError": "An error occurred.\nPlease try againg later.",
+  "emptyDataMsg": "There is no data to show"
 }

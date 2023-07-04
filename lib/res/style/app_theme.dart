@@ -24,53 +24,45 @@ class AppTheme {
       ),
       titleTextStyle: TextStyle(
         fontSize: 22.sp,
-        color: marvelDarkGrey,
-        decoration: TextDecoration.underline,
+        color: marvelWhite,
       ),
     ),
     textTheme: TextTheme(
       headlineSmall: TextStyle(
         fontSize: 25.sp,
-        color: marvelBlueGrey,
-        fontFamily: 'Courgette',
+        color: marvelWhite,
       ),
       headlineMedium: TextStyle(
         fontSize: 26.sp,
-        color: marvelDarkGrey,
-        fontFamily: 'Courgette',
-        decoration: TextDecoration.underline,
+        color: marvelWhite,
       ),
       headlineLarge: TextStyle(
         fontSize: 28.sp,
-        color: marvelDarkGrey,
-        fontFamily: 'Courgette',
-        decoration: TextDecoration.underline,
+        color: marvelWhite,
       ),
       titleSmall: TextStyle(
         fontSize: 20.sp,
-        color: marvelDarkGrey,
+        color: marvelWhite,
       ),
       titleMedium: TextStyle(
         fontSize: 22.sp,
-        color: marvelDarkGrey,
-        decoration: TextDecoration.underline,
+        color: marvelWhite,
       ),
       titleLarge: TextStyle(
         fontSize: 24.sp,
-        color: marvelDarkGrey,
-        decoration: TextDecoration.underline,
+        color: marvelWhite,
       ),
       bodyLarge: TextStyle(
         fontSize: 18.sp,
-        color: marvelDarkGrey,
+        color: marvelWhite,
       ),
       bodyMedium: TextStyle(
         fontSize: 16.sp,
-        color: marvelDarkGrey,
+        color: marvelWhite,
       ),
       bodySmall: TextStyle(
         fontSize: 15.sp,
-        color: marvelDarkGrey,
+        color: marvelWhite,
       ),
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
@@ -81,14 +73,15 @@ class AppTheme {
       ),
     ),
     snackBarTheme: const SnackBarThemeData(
-      backgroundColor: marvelBrown,
+      backgroundColor: marvelBlueGrey,
     ),
     appBarTheme: AppBarTheme(
-      backgroundColor: marvelBrown,
+      backgroundColor: Colors.transparent,
       systemOverlayStyle: SystemUiOverlayStyle.light.copyWith(
-        statusBarColor: marvelBrown,
+        statusBarColor: marvelBlueGrey,
         statusBarIconBrightness: Brightness.light,
       ),
+      foregroundColor: marvelWhite,
       centerTitle: false,
     ),
     visualDensity: VisualDensity.adaptivePlatformDensity,

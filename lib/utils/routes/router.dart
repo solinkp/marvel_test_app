@@ -17,7 +17,7 @@ class AppRouter extends $AppRouter {
     ),
     CustomRoute(
       path: '/superheroDetails',
-      page: SuperheroDetailsRoute.page,
+      page: CharacterDetailsRoute.page,
       transitionsBuilder: TransitionsBuilders.slideLeft,
     ),
   ];

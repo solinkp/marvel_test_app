@@ -1,3 +1,5 @@
 {
-  "appTitle": "Marvel App"
+  "appTitle": "Marvel App",
+  "generalError": "Ha ocurrido un error.\nPor favor intenta de nuevo.",
+  "emptyDataMsg": "No hay datos para mostrar"
 }

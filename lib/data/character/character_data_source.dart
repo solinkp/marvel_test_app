@@ -12,8 +12,11 @@ class CharacterDataSource implements ICharacterDataSource {
   CharacterDataSource({required this.client});
 
   @override
-  Future<List<Character>> getCharacters() async {
-    final response = await client.get(baseUrl);
+  Future<List<Character>> getCharacters(int offset) async {
+    final response = await client.get(
+      baseUrl,
+      queryParameters: {'offset': offset},
+    );
 
     List<Character> characters = [];
     for (var character in response.data['data']['results']) {

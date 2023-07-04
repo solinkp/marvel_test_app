@@ -7,6 +7,6 @@ linter:
 
 analyzer:
   exclude: [
-    lib/domain/**.g.dart,
+    lib/models/**.g.dart,
     lib/di/**.config.dart
   ]

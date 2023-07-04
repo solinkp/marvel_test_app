@@ -15,11 +15,11 @@ class NetworkInterceptor extends Interceptor {
         ))
         .toString();
 
-    options.queryParameters = {
+    options.queryParameters.addAll({
       'apikey': publicApiKey,
       'hash': md5Hash,
       'ts': timestamp,
-    };
+    });
     handler.next(options);
   }
 }
