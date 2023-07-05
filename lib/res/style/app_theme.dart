@@ -87,6 +87,16 @@ class AppTheme {
     navigationBarTheme: const NavigationBarThemeData(
       backgroundColor: marvelGrey,
     ),
+    bottomSheetTheme: const BottomSheetThemeData(
+      backgroundColor: marvelBlueGrey,
+      showDragHandle: true,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(30),
+          topRight: Radius.circular(30),
+        ),
+      ),
+    ),
     visualDensity: VisualDensity.adaptivePlatformDensity,
   );
 }

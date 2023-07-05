@@ -6,5 +6,11 @@
   "eventNav": "Eventos",
   "serieNav": "Series",
   "storyNav": "Historias",
-  "descripNotAvail": "Descripción no disponible"
+  "descripNotAvail": "Descripción no disponible",
+  "comicIssueNumber": "Comic #",
+  "comicPageCount": "Páginas",
+  "serieEmission": "Emisión",
+  "serieRating": "Clasificación",
+  "nA": "N/D",
+  "storyType": "Tipo"
 }

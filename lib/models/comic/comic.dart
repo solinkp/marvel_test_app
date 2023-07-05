@@ -1,5 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 
+import 'package:marvel_test/generated/l10n.dart';
 import 'package:marvel_test/models/art/art.dart';
 
 part 'comic.g.dart';
@@ -30,5 +31,11 @@ class Comic {
       urls.add(art.getImageUrl);
     }
     return urls;
+  }
+
+  String get getDescription {
+    return description == null || description!.isEmpty
+        ? S.current.descripNotAvail
+        : description!;
   }
 }

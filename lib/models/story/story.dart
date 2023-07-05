@@ -1,5 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 
+import 'package:marvel_test/generated/l10n.dart';
 import 'package:marvel_test/models/art/art.dart';
 
 part 'story.g.dart';
@@ -21,4 +22,10 @@ class Story {
   });
 
   factory Story.fromJson(Map<String, dynamic> json) => _$StoryFromJson(json);
+
+  String get getDescription {
+    return description == null || description!.isEmpty
+        ? S.current.descripNotAvail
+        : description!;
+  }
 }

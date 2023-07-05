@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:marvel_test/models/event/event.dart';
 import 'package:marvel_test/view/wigdets/image_container.dart';
+import 'package:marvel_test/view/character_details/widgets/segment_detail_sheet.dart';
 
 class EventItem extends StatelessWidget {
   final Event event;
@@ -18,6 +20,19 @@ class EventItem extends StatelessWidget {
   }
 
   void _displayMoreInfo(BuildContext context) {
-    // show bootom sheet
+    showBottomSheet(
+      context: context,
+      builder: (context) {
+        return SegmentDetailSheet(
+          title: event.title,
+          content: Column(
+            children: [
+              Text(event.getDescription),
+              SizedBox(height: 10.h),
+            ],
+          ),
+        );
+      },
+    );
   }
 }
